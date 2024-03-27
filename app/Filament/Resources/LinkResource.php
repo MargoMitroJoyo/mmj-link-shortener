@@ -81,6 +81,7 @@ class LinkResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(fn () => parent::getEloquentQuery()->where('user_id', auth()->id()))
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
