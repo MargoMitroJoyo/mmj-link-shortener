@@ -19,7 +19,7 @@
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto"></ul><a class="btn btn-primary shadow" role="button"
-                    href="{{ url('/admin') }}">
+                    href="{{ url('/dashboard') }}">
                     @auth
                         Dashboard
                     @else
@@ -64,7 +64,7 @@
                             <p class="mb-4">Introducing our revolutionary link shortener service with unlimited
                                 customization options!&nbsp;</p>
                             <div class="my-3">
-                                <a class="btn btn-secondary me-2 mt-2" role="button" href="{{ url('/admin') }}">
+                                <a class="btn btn-secondary me-2 mt-2" role="button" href="{{ url('/dashboard') }}">
                                     @auth
                                         Go To Dashboard
                                     @else
