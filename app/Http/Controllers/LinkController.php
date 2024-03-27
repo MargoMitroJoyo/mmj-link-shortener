@@ -12,7 +12,9 @@ class LinkController extends Controller
      */
     public function index()
     {
-        //
+        $isSignedIn = auth()->check();
+
+        return view('index', compact('isSignedIn'));
     }
 
     /**

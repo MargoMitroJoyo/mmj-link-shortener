@@ -3,8 +3,6 @@
 use App\Http\Controllers\LinkController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LinkController::class, 'index'])->name('links.index');
 
 Route::get('/{slug}', [LinkController::class, 'redirect'])->name('links.redirect');
