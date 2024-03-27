@@ -104,8 +104,27 @@ class LinkResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
-                    ->formatStateUsing(fn ($state) => $state ? 'Aktif' : 'Tidak Aktif')
-                    ->icon(fn ($state) => $state ? 'heroicon-o-check-circle' : 'heroicon-o-x-circle')
+                    ->formatStateUsing(function ($state, Link $record) {
+                        if ($record->isExpired()) {
+                            return 'Kadaluarsa';
+                        }
+
+                        return $state ? 'Aktif' : 'Tidak Aktif';
+                    })
+                    ->icon(function ($state, Link $record) {
+                        if ($record->isExpired()) {
+                            return 'heroicon-o-x-circle';
+                        }
+
+                        return $state ? 'heroicon-o-check-circle' : 'heroicon-o-x-circle';
+                    })
+                    ->color(function ($state, Link $record) {
+                        if ($record->isExpired()) {
+                            return 'danger';
+                        }
+
+                        return $state ? 'success' : 'danger';
+                    })
                     ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

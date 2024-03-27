@@ -17,6 +17,7 @@ class Link extends Model
         'url',
         'description',
         'status',
+        'expired_at',
     ];
 
     public function user()
@@ -27,5 +28,10 @@ class Link extends Model
     public function isPublished()
     {
         return $this->status;
+    }
+
+    public function isExpired()
+    {
+        return $this->expired_at && now()->gte($this->expired_at);
     }
 }

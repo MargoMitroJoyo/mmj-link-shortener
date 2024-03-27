@@ -79,6 +79,10 @@ class LinkController extends Controller
             abort(403);
         }
 
+        if (Link::where('slug', $slug)->firstOrFail()->isExpired()) {
+            abort(403);
+        }
+
         return redirect()->to(Link::where('slug', $slug)->firstOrFail()->url);
     }
 }
