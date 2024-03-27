@@ -11,9 +11,18 @@ class LinkStatsOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Total Link', fn () => Link::count()),
-            Stat::make('Bounce rate', '21%'),
-            Stat::make('Average time on page', '3:12'),
+            Stat::make('Total Link', fn () => Link::count())
+                ->color('success')
+                ->descriptionIcon('heroicon-o-link')
+                ->chart([7, 2, 10, 3, 15, 4, 17]),
+            Stat::make('Link Aktif', fn () => Link::where('status', true)->count())
+                ->color('waring')
+                ->descriptionIcon('heroicon-o-check-circle')
+                ->chart([7, 2, 10, 3, 15, 4, 17]),
+            Stat::make('Link Kadaluarsa', Link::where('expired_at', '<=', now())->count())
+                ->color('danger')
+                ->descriptionIcon('heroicon-o-x-circle')
+                ->chart([7, 2, 10, 3, 15, 4, 17]),
         ];
     }
 }
