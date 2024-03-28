@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Brand</title>
+    <title>Bupin Shortener</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=5fe79462834491b3bde4026987c3b88c">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
@@ -13,20 +13,17 @@
 <body>
     <!-- Start: Navbar Centered Links -->
     <nav class="navbar navbar-expand-md fixed-top navbar-shrink py-3 navbar-light" id="mainNav">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><span>Bupin
-                    Shortener</span></a><button data-bs-toggle="collapse" class="navbar-toggler"
-                data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span
-                    class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav mx-auto"></ul><a class="btn btn-primary shadow" role="button"
-                    href="{{ url('/dashboard') }}">
-                    @auth
-                        Dashboard
-                    @else
-                        Login
-                    @endauth
-                </a>
-            </div>
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/">
+                <span>Bupin Shortener</span>
+            </a>
+            <ul class="navbar-nav mx-auto"></ul><a class="btn btn-primary shadow" role="button"
+                href="{{ url('/dashboard') }}">
+                @auth
+                    Dashboard
+                @else
+                    Login
+                @endauth
+            </a>
         </div>
     </nav><!-- End: Navbar Centered Links -->
     <header class="pt-5">
@@ -34,13 +31,22 @@
         <div class="container pt-4 pt-xl-5">
             <div class="row pt-5">
                 <div class="col-md-8 text-center text-md-start mx-auto">
+                    <div class="d-flex justify-content-center display-4 w-25 mx-auto my-3">
+                        <img src="/assets/img/illustrations/logo.png" alt="Logo" class="img-fluid">
+                    </div>
                     <div class="text-center">
-                        <h1 class="display-4 fw-bold mb-5">Shorten your crazy <span
-                                style="color: rgb(146, 9, 0);">unreadable</span>&nbsp;<span
-                                class="underline">links*</span>.</h1>
+                        <h1 class="display-4 fw-bold mb-5">
+                            <span id="element"></span>
+                        </h1>
                         <p class="fs-5 text-muted mb-5">Say goodbye to long, cumbersome URLs and hello to sleek,
                             memorable links tailored to your exact needs.</p>
                     </div>
+                    <form class="d-flex justify-content-between flex-wrap" method="post" data-bs-theme="light">
+                        <div class="shadow-lg mb-3 flex-fill"><input class="form-control" type="url" name="link"
+                                placeholder="Your Link" required /></div>
+                        <div class="shadow-lg mb-3"><button class="btn btn-primary" type="submit">Shorten</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-12 col-lg-10 mx-auto">
                     <div class="text-center position-relative"><img class="img-fluid"
@@ -88,43 +94,41 @@
             <div class="row mb-2">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h2 class="display-6 fw-bold mb-5"><span class="pb-3 underline">FAQ<br></span></h2>
-                    <p class="text-muted mb-5">Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis
-                        nostra nunc. Vestibulum dui eget ultrices.</p>
+                    <p class="text-muted mb-5">Do you have any questions? Maybe this section can help you find what
+                        you're looking for</p>
                 </div>
             </div>
             <div class="row mb-2">
                 <div class="col-md-8 mx-auto">
                     <div class="accordion text-muted" role="tablist" id="accordion-1">
                         <div class="accordion-item">
-                            <h2 class="accordion-header" role="tab"><button class="accordion-button" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true"
-                                    aria-controls="accordion-1 .item-1">Aenean arcu euismod aliquam, volutpat
-                                    consequat?</button></h2>
-                            <div class="accordion-collapse collapse show item-1" role="tabpanel"
+                            <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1"
+                                    aria-expanded="true" aria-controls="accordion-1 .item-1">How is it different from
+                                    services like &nbsp;<span class="underline">bit.ly and s.id</span>?</button></h2>
+                            <div class="accordion-collapse collapse item-1" role="tabpanel"
                                 data-bs-parent="#accordion-1">
                                 <div class="accordion-body">
-                                    <p>Maecenas diam volutpat, erat quis enim cras lobortis vivamus donec tempor. Congue
-                                        ultrices donec turpis vivamus. Laoreet aenean metus, mi nunc massa feugiat duis.
-                                        Pharetra erat consequat purus curae quisque, etiam accumsan class.</p>
-                                    <p class="mb-0">Commodo rutrum quisque curabitur habitasse, suspendisse etiam.</p>
+                                    <p class="mb-0">It's not too different, as it was created for a similar purpose.
+                                        But now you can
+                                        edit anything from original links to shortened links. No subscription required.
+                                        Enjoy!</p>
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-2"
-                                    aria-expanded="false" aria-controls="accordion-1 .item-2">Lorem quam erat placerat
-                                    mollis, rhoncus senectus?</button></h2>
+                                    aria-expanded="false" aria-controls="accordion-1 .item-2">Are these services
+                                    publicly available?</button></h2>
                             <div class="accordion-collapse collapse item-2" role="tabpanel"
                                 data-bs-parent="#accordion-1">
                                 <div class="accordion-body">
-                                    <p class="mb-0">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo
-                                        odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                        gravida at eget metus.</p>
+                                    <p class="mb-0">For now, sorry not yet. But we'll see what the future holds.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
+                        {{-- <div class="accordion-item">
                             <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-3"
                                     aria-expanded="false" aria-controls="accordion-1 .item-3">Iaculis accumsan id,
@@ -137,7 +141,7 @@
                                         gravida at eget metus.</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -163,7 +167,7 @@
             <div class="row row-cols-md-4">
                 <!-- Start: Social Icons -->
                 <div class="col-12 col-md-6">
-                    <div class="fw-bold d-flex align-items-center mb-2"><span>Powered by P.T. Margo Mitro Joyo</span>
+                    <div class="fw-bold d-flex align-items-center mb-2"><span>Powered by PT Margo Mitro Joyo</span>
                     </div>
                     <p class="text-muted">Jl. Watuburik No.10, Watuburik, Wonorejo, Kec. Gondangrejo, Kabupaten
                         Karanganyar, Jawa Tengah 57188<br>Indonesia</p>
@@ -171,7 +175,7 @@
             </div>
             <hr>
             <div class="text-muted d-flex justify-content-between align-items-center pt-3">
-                <p class="mb-0">Copyright © 2024 Margo Mitro Joyo</p>
+                <p class="mb-0">Copyright © 2024 PT Margo Mitro Joyo</p>
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="1em"
                             height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-facebook">
@@ -196,7 +200,14 @@
         </div>
     </footer><!-- End: Footer Multi Column -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script src="/assets/js/script.min.js?h=4b1f99f2e8ff6ac8a7c04891f6b7129c"></script>
+    <script>
+        var typed = new Typed('#element', {
+            strings: ['Shorten your <br> <span class="font-monospace text-danger">drive.google.com/...</span>', 'As short as <br> <span class="font-monospace text-success">s.bupin.id/myLink*</span>'],
+            typeSpeed: 50,
+        });
+    </script>
 </body>
 
 </html>
