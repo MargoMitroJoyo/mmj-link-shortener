@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use Webbingbrasil\FilamentCopyActions\Tables\CopyableTextColumn;
 
 class LinkResource extends Resource
 {
@@ -93,6 +94,11 @@ class LinkResource extends Resource
                     ->url(fn ($state) => config('app.url') . '/' . $state)
                     ->openUrlInNewTab()
                     ->searchable(),
+                // CopyableTextColumn::make('slugAction')
+                //     ->label(null)
+                //     ->state('Link Pendek')
+                //     ->onlyIcon()
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
                     ->label('Link Asli')
                     ->limit(50)
