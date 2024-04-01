@@ -13,6 +13,8 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
+use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Table;
@@ -75,6 +77,9 @@ class LinkResource extends Resource
                     ->required(),
                 Forms\Components\RichEditor::make('description')
                     ->label('Deskripsi')
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                    ])
                     ->columnSpanFull(),
             ]);
     }
@@ -86,19 +91,18 @@ class LinkResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
-                    ->formatStateUsing(fn ($state) => new HtmlString("<strong>{$state}</strong>"))
+                    ->tooltip(fn ($state) => $state)
+                    ->limit(25)
+                    ->weight(FontWeight::Bold)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->label('Link Pendek')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->iconPosition(IconPosition::After)
                     ->formatStateUsing(fn ($state) => config('app.url') . '/' . $state)
                     ->url(fn ($state) => config('app.url') . '/' . $state)
                     ->openUrlInNewTab()
                     ->searchable(),
-                // CopyableTextColumn::make('slugAction')
-                //     ->label(null)
-                //     ->state('Link Pendek')
-                //     ->onlyIcon()
-                //     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
                     ->label('Link Asli')
                     ->limit(50)
@@ -152,6 +156,7 @@ class LinkResource extends Resource
                     ->options([
                         '1' => 'Aktif',
                         '0' => 'Tidak Aktif',
+                        '2' => 'Kadaluarsa',
                     ]),
             ])
             ->actions([
