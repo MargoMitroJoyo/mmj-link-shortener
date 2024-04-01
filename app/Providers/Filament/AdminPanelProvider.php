@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('dashboard')
+            ->favicon(url('https://filamentphp.com/favicon/favicon-32x32.png'))
             ->login()
             ->passwordReset()
             ->sidebarFullyCollapsibleOnDesktop()
