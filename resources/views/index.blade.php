@@ -35,16 +35,18 @@
                         <img src="/assets/img/illustrations/logo.png" alt="Logo" class="img-fluid">
                     </div>
                     <div class="text-center">
-                        <h1 class="display-4 fw-bold mb-5">
-                            <span id="element"></span>
+                        <h1 class="display-4 fw-bold mb-5" style="height: 9rem; overflow: hidden;">
+                            <span class="my-auto" id="element"></span>
                         </h1>
                         <p class="fs-5 text-muted mb-5">Say goodbye to long, cumbersome URLs and hello to sleek,
                             memorable links tailored to your exact needs.</p>
                     </div>
-                    <form class="d-flex justify-content-between flex-wrap" method="post" data-bs-theme="light">
-                        <div class="shadow-lg mb-3 flex-fill"><input class="form-control" type="url" name="link"
-                                placeholder="Your Link" required /></div>
-                        <div class="shadow-lg mb-3"><button class="btn btn-primary" type="submit">Shorten</button>
+                    <form class="d-flex justify-content-between flex-wrap" method="get" action="/" data-bs-theme="light">
+                        <div class="shadow-lg mb-3 flex-fill">
+                            <input class="form-control" type="url" name="link"placeholder="https://yourdomain.id/very-long-links" required readonly/>
+                        </div>
+                        <div class="shadow-lg mb-3">
+                            <button class="btn btn-primary" type="submit">Shorten</button>
                         </div>
                     </form>
                 </div>
