@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Webbingbrasil\FilamentCopyActions\Tables\CopyableTextColumn;
 
 class LinkResource extends Resource
@@ -64,7 +65,7 @@ class LinkResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('url')
                     ->label('Link Asli')
-                    ->placeholder('https://example.com')
+                    ->placeholder('https://yourdomain.id/very-long-links')
                     ->url()
                     ->required()
                     ->maxLength(255),
@@ -97,15 +98,19 @@ class LinkResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->label('Link Pendek')
-                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->icon('heroicon-o-clipboard')
                     ->iconPosition(IconPosition::After)
                     ->formatStateUsing(fn ($state) => config('app.url') . '/' . $state)
-                    ->url(fn ($state) => config('app.url') . '/' . $state)
-                    ->openUrlInNewTab()
+                    ->copyable()
+                    ->copyableState(fn ($state) => config('app.url') . '/' . $state)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
                     ->label('Link Asli')
                     ->limit(50)
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->iconPosition(IconPosition::After)
+                    ->url(fn ($state) => $state)
+                    ->openUrlInNewTab()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Deskripsi')
@@ -161,10 +166,24 @@ class LinkResource extends Resource
             ])
             ->actions([
                 // Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\Action::make('qr-code')
+                    ->label('QR')
+                    ->icon('heroicon-o-qr-code')
+                    ->action(function (Link $record) {
+                        return response()->streamDownload(
+                            function () use ($record) {
+                                echo QrCode::size(200)
+                                    ->generate(config('app.url') . '/' . $record->slug);
+                            },
+                            $record->title . '.svg'
+                        );
+                    }),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ForceDeleteAction::make(),
+                    Tables\Actions\RestoreAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

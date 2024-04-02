@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\AvatarProviders\BoringAvatarsProvider;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Facades\Filament;
@@ -9,6 +10,8 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
+use Filament\Pages\Auth\EmailVerification\EmailVerificationPrompt;
+use Filament\Pages\Auth\Register;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -33,7 +36,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('dashboard')
             ->favicon(url('https://filamentphp.com/favicon/favicon-32x32.png'))
             ->login()
+            ->registration()
+            ->emailVerification()
             ->passwordReset()
+            ->defaultAvatarProvider(BoringAvatarsProvider::class)
             ->sidebarFullyCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Blue,

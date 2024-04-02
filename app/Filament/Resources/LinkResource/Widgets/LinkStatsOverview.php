@@ -15,7 +15,14 @@ class LinkStatsOverview extends BaseWidget
                 ->color('success')
                 ->icon('heroicon-o-link')
                 ->chart([7, 7]),
-            Stat::make('Link Aktif', fn () => Link::where('user_id', auth()->id())->where('status', true)->count())
+            Stat::make(
+                'Link Aktif',
+                fn () => Link::where('user_id', auth()->id())
+                    ->where('status', true)
+                    ->where('expired_at', null)
+                    ->orWhere('expired_at', '>', now())
+                    ->count()
+            )
                 ->color('warning')
                 ->icon('heroicon-o-bolt')
                 ->chart([7, 7]),
