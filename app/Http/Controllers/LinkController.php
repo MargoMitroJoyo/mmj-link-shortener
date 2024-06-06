@@ -74,7 +74,7 @@ class LinkController extends Controller
     public function redirect(string $slug)
     {
         if (!Link::where('slug', $slug)->exists()) {
-            abort(404);
+            return view('errors.404');
         }
 
         if (!Link::where('slug', $slug)->firstOrFail()->isPublished()) {
