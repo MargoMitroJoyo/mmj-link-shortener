@@ -7,6 +7,7 @@ use App\Filament\Resources\LinkResource\Pages;
 use App\Filament\Resources\LinkResource\RelationManagers;
 use App\Filament\Resources\LinkResource\Widgets\LinkStatsOverview;
 use App\Models\Link;
+use Auth;
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -37,7 +38,7 @@ class LinkResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Hidden::make('user_id')
-                    ->default(auth()->id())
+                    ->default(Auth::user()->id())
                     ->required(),
                 Forms\Components\TextInput::make('title')
                     ->label('Judul')
@@ -88,11 +89,11 @@ class LinkResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(fn () => parent::getEloquentQuery()->where('user_id', auth()->id()))
+            ->query(fn() => parent::getEloquentQuery()->where('user_id', Auth::user()->id))
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
-                    ->tooltip(fn ($state) => $state)
+                    ->tooltip(fn($state) => $state)
                     ->limit(25)
                     ->weight(FontWeight::Bold)
                     ->searchable(),
@@ -100,16 +101,16 @@ class LinkResource extends Resource
                     ->label('Link Pendek')
                     ->icon('heroicon-o-clipboard')
                     ->iconPosition(IconPosition::After)
-                    ->formatStateUsing(fn ($state) => config('app.url') . '/' . $state)
+                    ->formatStateUsing(fn($state) => config('app.url') . '/' . $state)
                     ->copyable()
-                    ->copyableState(fn ($state) => config('app.url') . '/' . $state)
+                    ->copyableState(fn($state) => config('app.url') . '/' . $state)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
                     ->label('Link Asli')
                     ->limit(50)
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->iconPosition(IconPosition::After)
-                    ->url(fn ($state) => $state)
+                    ->url(fn($state) => $state)
                     ->openUrlInNewTab()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
@@ -169,15 +170,7 @@ class LinkResource extends Resource
                 Tables\Actions\Action::make('qr-code')
                     ->label('QR')
                     ->icon('heroicon-o-qr-code')
-                    ->action(function (Link $record) {
-                        return response()->streamDownload(
-                            function () use ($record) {
-                                echo QrCode::size(200)
-                                    ->generate(config('app.url') . '/' . $record->slug);
-                            },
-                            $record->title . '.svg'
-                        );
-                    }),
+                    ->url(fn(Link $record) => 'https://bupin-qr.tegar.dev/api/qr/u/' . urlencode(config('app.url') . '/' . $record->slug) . '?watermark=false&filename=[Generated] ' . $record->title, true),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
