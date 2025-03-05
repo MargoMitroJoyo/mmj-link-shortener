@@ -2414,6 +2414,33 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Log a user into the application without firing the Login event.
+         *
+         * @param \Illuminate\Contracts\Auth\Authenticatable $user
+         * @return void 
+         * @static 
+         */
+        public static function quietLogin($user)
+        {
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
+            $instance->quietLogin($user);
+        }
+
+        /**
+         * Logout the user without updating remember_token
+         * and without firing the Logout event.
+         *
+         * @param void
+         * @return void 
+         * @static 
+         */
+        public static function quietLogout()
+        {
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
+            $instance->quietLogout();
+        }
+
+        /**
          * Get the currently authenticated user.
          *
          * @return \App\Models\User|null 
@@ -2421,7 +2448,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function user()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->user();
         }
 
@@ -2433,7 +2461,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function id()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->id();
         }
 
@@ -2446,7 +2475,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function once($credentials = [])
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->once($credentials);
         }
 
@@ -2459,7 +2489,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function onceUsingId($id)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->onceUsingId($id);
         }
 
@@ -2472,7 +2503,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function validate($credentials = [])
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->validate($credentials);
         }
 
@@ -2487,7 +2519,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function basic($field = 'email', $extraConditions = [])
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->basic($field, $extraConditions);
         }
 
@@ -2502,7 +2535,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function onceBasic($field = 'email', $extraConditions = [])
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->onceBasic($field, $extraConditions);
         }
 
@@ -2516,7 +2550,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function attempt($credentials = [], $remember = false)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->attempt($credentials, $remember);
         }
 
@@ -2531,7 +2566,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function attemptWhen($credentials = [], $callbacks = null, $remember = false)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->attemptWhen($credentials, $callbacks, $remember);
         }
 
@@ -2545,7 +2581,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function loginUsingId($id, $remember = false)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->loginUsingId($id, $remember);
         }
 
@@ -2559,7 +2596,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function login($user, $remember = false)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             $instance->login($user, $remember);
         }
 
@@ -2571,7 +2609,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function logout()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             $instance->logout();
         }
 
@@ -2585,7 +2624,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function logoutCurrentDevice()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             $instance->logoutCurrentDevice();
         }
 
@@ -2601,7 +2641,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function logoutOtherDevices($password)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->logoutOtherDevices($password);
         }
 
@@ -2614,7 +2655,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function attempting($callback)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             $instance->attempting($callback);
         }
 
@@ -2626,7 +2668,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getLastAttempted()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getLastAttempted();
         }
 
@@ -2638,7 +2681,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getName()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getName();
         }
 
@@ -2650,7 +2694,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getRecallerName()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getRecallerName();
         }
 
@@ -2662,7 +2707,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function viaRemember()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->viaRemember();
         }
 
@@ -2670,12 +2716,13 @@ namespace Illuminate\Support\Facades {
          * Set the number of minutes the remember me cookie should be valid for.
          *
          * @param int $minutes
-         * @return \Illuminate\Auth\SessionGuard 
+         * @return \Lab404\Impersonate\Guard\SessionGuard 
          * @static 
          */
         public static function setRememberDuration($minutes)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->setRememberDuration($minutes);
         }
 
@@ -2688,7 +2735,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getCookieJar()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getCookieJar();
         }
 
@@ -2701,7 +2749,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function setCookieJar($cookie)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             $instance->setCookieJar($cookie);
         }
 
@@ -2713,7 +2762,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getDispatcher()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getDispatcher();
         }
 
@@ -2726,7 +2776,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function setDispatcher($events)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             $instance->setDispatcher($events);
         }
 
@@ -2738,7 +2789,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getSession()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getSession();
         }
 
@@ -2750,7 +2802,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getUser()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getUser();
         }
 
@@ -2758,12 +2811,13 @@ namespace Illuminate\Support\Facades {
          * Set the current user.
          *
          * @param \Illuminate\Contracts\Auth\Authenticatable $user
-         * @return \Illuminate\Auth\SessionGuard 
+         * @return \Lab404\Impersonate\Guard\SessionGuard 
          * @static 
          */
         public static function setUser($user)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->setUser($user);
         }
 
@@ -2775,7 +2829,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getRequest()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getRequest();
         }
 
@@ -2783,12 +2838,13 @@ namespace Illuminate\Support\Facades {
          * Set the current request instance.
          *
          * @param \Symfony\Component\HttpFoundation\Request $request
-         * @return \Illuminate\Auth\SessionGuard 
+         * @return \Lab404\Impersonate\Guard\SessionGuard 
          * @static 
          */
         public static function setRequest($request)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->setRequest($request);
         }
 
@@ -2800,7 +2856,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getTimebox()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getTimebox();
         }
 
@@ -2813,7 +2870,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function authenticate()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->authenticate();
         }
 
@@ -2825,7 +2883,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function hasUser()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->hasUser();
         }
 
@@ -2837,7 +2896,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function check()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->check();
         }
 
@@ -2849,19 +2909,21 @@ namespace Illuminate\Support\Facades {
          */
         public static function guest()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->guest();
         }
 
         /**
          * Forget the current user.
          *
-         * @return \Illuminate\Auth\SessionGuard 
+         * @return \Lab404\Impersonate\Guard\SessionGuard 
          * @static 
          */
         public static function forgetUser()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->forgetUser();
         }
 
@@ -2873,7 +2935,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getProvider()
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             return $instance->getProvider();
         }
 
@@ -2886,7 +2949,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function setProvider($provider)
         {
-            /** @var \Illuminate\Auth\SessionGuard $instance */
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            /** @var \Lab404\Impersonate\Guard\SessionGuard $instance */
             $instance->setProvider($provider);
         }
 
@@ -2901,7 +2965,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function macro($name, $macro)
         {
-            \Illuminate\Auth\SessionGuard::macro($name, $macro);
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            \Lab404\Impersonate\Guard\SessionGuard::macro($name, $macro);
         }
 
         /**
@@ -2915,7 +2980,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function mixin($mixin, $replace = true)
         {
-            \Illuminate\Auth\SessionGuard::mixin($mixin, $replace);
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            \Lab404\Impersonate\Guard\SessionGuard::mixin($mixin, $replace);
         }
 
         /**
@@ -2927,7 +2993,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function hasMacro($name)
         {
-            return \Illuminate\Auth\SessionGuard::hasMacro($name);
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            return \Lab404\Impersonate\Guard\SessionGuard::hasMacro($name);
         }
 
         /**
@@ -2938,7 +3005,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function flushMacros()
         {
-            \Illuminate\Auth\SessionGuard::flushMacros();
+            //Method inherited from \Illuminate\Auth\SessionGuard 
+            \Lab404\Impersonate\Guard\SessionGuard::flushMacros();
         }
 
             }
@@ -24084,6 +24152,69 @@ namespace Illuminate\Http {
             }
     }
 
+namespace Illuminate\Routing {
+    /**
+     * 
+     *
+     * @mixin \Illuminate\Routing\RouteRegistrar
+     */
+    class Router {
+        /**
+         * 
+         *
+         * @see \Lab404\Impersonate\ImpersonateServiceProvider::registerRoutesMacro()
+         * @static 
+         */
+        public static function impersonate()
+        {
+            return \Illuminate\Routing\Router::impersonate();
+        }
+
+            }
+    /**
+     * 
+     *
+     */
+    class Route {
+        /**
+         * 
+         *
+         * @see \Livewire\Features\SupportLazyLoading\SupportLazyLoading::registerRouteMacro()
+         * @param mixed $enabled
+         * @static 
+         */
+        public static function lazy($enabled = true)
+        {
+            return \Illuminate\Routing\Route::lazy($enabled);
+        }
+
+        /**
+         * 
+         *
+         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
+         * @param mixed $roles
+         * @static 
+         */
+        public static function role($roles = [])
+        {
+            return \Illuminate\Routing\Route::role($roles);
+        }
+
+        /**
+         * 
+         *
+         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
+         * @param mixed $permissions
+         * @static 
+         */
+        public static function permission($permissions = [])
+        {
+            return \Illuminate\Routing\Route::permission($permissions);
+        }
+
+            }
+    }
+
 namespace Illuminate\Database\Query {
     /**
      * 
@@ -24391,51 +24522,6 @@ namespace Illuminate\Database\Eloquent\Relations {
         public static function getPowerJoinExistenceCompareKey()
         {
             return \Illuminate\Database\Eloquent\Relations\Relation::getPowerJoinExistenceCompareKey();
-        }
-
-            }
-    }
-
-namespace Illuminate\Routing {
-    /**
-     * 
-     *
-     */
-    class Route {
-        /**
-         * 
-         *
-         * @see \Livewire\Features\SupportLazyLoading\SupportLazyLoading::registerRouteMacro()
-         * @param mixed $enabled
-         * @static 
-         */
-        public static function lazy($enabled = true)
-        {
-            return \Illuminate\Routing\Route::lazy($enabled);
-        }
-
-        /**
-         * 
-         *
-         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
-         * @param mixed $roles
-         * @static 
-         */
-        public static function role($roles = [])
-        {
-            return \Illuminate\Routing\Route::role($roles);
-        }
-
-        /**
-         * 
-         *
-         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
-         * @param mixed $permissions
-         * @static 
-         */
-        public static function permission($permissions = [])
-        {
-            return \Illuminate\Routing\Route::permission($permissions);
         }
 
             }
