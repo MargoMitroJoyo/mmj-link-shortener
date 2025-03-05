@@ -22,6 +22,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
@@ -39,6 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->registration()
             ->emailVerification()
             ->passwordReset()
+            ->topNavigation(fn () => ! Auth::user()->hasRole('super_admin'))
             ->defaultAvatarProvider(BoringAvatarsProvider::class)
             ->sidebarFullyCollapsibleOnDesktop()
             ->colors([
