@@ -11,7 +11,6 @@
         "jeffgreco13/filament-breezy": "^2.3",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "simplesoftwareio/simple-qrcode": "~4",
         "stechstudio/filament-impersonate": "^3.15",
         "tomatophp/filament-users": "^1.0",
         "webbingbrasil/filament-copyactions": "^3.0"
