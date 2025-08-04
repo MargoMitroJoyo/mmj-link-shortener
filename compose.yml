@@ -1,0 +1,9 @@
+services:
+  frankenphp:
+    build:
+      context: .
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    volumes:
+      - ./.env:/app/.env
+    restart: unless-stopped
