@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Link extends Model
 {
@@ -33,5 +34,12 @@ class Link extends Model
     public function isExpired()
     {
         return $this->expired_at && now()->gte($this->expired_at);
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->user_id = Auth::user()->id;
+        });
     }
 }
