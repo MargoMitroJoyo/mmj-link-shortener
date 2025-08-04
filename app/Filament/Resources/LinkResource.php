@@ -7,8 +7,6 @@ use App\Filament\Resources\LinkResource\Pages;
 use App\Filament\Resources\LinkResource\RelationManagers;
 use App\Filament\Resources\LinkResource\Widgets\LinkStatsOverview;
 use App\Models\Link;
-use Auth;
-use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -22,10 +20,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Webbingbrasil\FilamentCopyActions\Tables\CopyableTextColumn;
 
 class LinkResource extends Resource
 {
@@ -37,11 +33,9 @@ class LinkResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Hidden::make('user_id')
-                    ->default(Auth::user()->id())
-                    ->required(),
                 Forms\Components\TextInput::make('title')
                     ->label('Judul')
+                    ->autofocus(false)
                     ->live(onBlur: true)
                     ->afterStateUpdated(function (Get $get, Set $set, ?string $operation, ?string $old, ?string $state, ?Model $record) {
 
@@ -185,6 +179,7 @@ class LinkResource extends Resource
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ])
+            ->defaultSort('created_at', 'desc')
             ->recordAction(EditAction::class)
             ->recordUrl(null);
     }
