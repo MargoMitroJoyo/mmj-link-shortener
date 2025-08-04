@@ -28,7 +28,7 @@ RUN install-php-extensions \
 WORKDIR /app
 
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts
+RUN composer install --no-scripts
 
 COPY . .
 
