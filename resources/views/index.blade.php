@@ -177,7 +177,7 @@
             </div>
             <hr>
             <div class="text-muted d-flex justify-content-between align-items-center pt-3">
-                <p class="mb-0">Copyright © 2024 PT Margo Mitro Joyo</p>
+                <p class="mb-0">Copyright © {{ date('Y') }} PT Margo Mitro Joyo</p>
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="1em"
                             height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-facebook">
