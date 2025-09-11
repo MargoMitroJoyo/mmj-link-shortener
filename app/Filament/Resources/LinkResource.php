@@ -37,24 +37,16 @@ class LinkResource extends Resource
                     ->label('Judul')
                     ->autofocus(false)
                     ->live(onBlur: true)
-                    ->afterStateUpdated(function (Get $get, Set $set, ?string $operation, ?string $old, ?string $state, ?Model $record) {
-
-                        if ($operation == 'edit' && $record->isPublished()) {
-                            return;
-                        }
-
-                        if (($get('slug') ?? '') !== Str::slug($old)) {
-                            return;
-                        }
-
-                        $set('slug', Str::slug($state));
-                    })
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->label('Link Pendek')
                     ->prefix(config('app.url') . '/')
+                    ->default(function () {
+                        $nanoClient = new \Hidehalo\Nanoid\Client();
+                        return $nanoClient->generateId(size: 10, mode: \Hidehalo\Nanoid\Client::MODE_DYNAMIC);
+                    })
                     ->unique(ignoreRecord: true)
                     ->required()
                     ->maxLength(255),
