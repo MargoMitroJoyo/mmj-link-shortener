@@ -42,6 +42,8 @@ class AdminPanelProvider extends PanelProvider
             ->registration()
             ->emailVerification()
             ->passwordReset()
+            ->databaseNotifications()
+            ->databaseTransactions()
             ->topNavigation(fn () => ! Auth::user()->hasRole('super_admin'))
             ->sidebarFullyCollapsibleOnDesktop()
             ->colors([
