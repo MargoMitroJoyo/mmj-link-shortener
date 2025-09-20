@@ -62,6 +62,7 @@ class LinkResource extends Resource
                 Forms\Components\ToggleButtons::make('status')
                     ->inline()
                     ->options(LinkStatus::class)
+                    ->default(LinkStatus::Active)
                     ->required(),
                 Forms\Components\RichEditor::make('description')
                     ->label('Deskripsi')
