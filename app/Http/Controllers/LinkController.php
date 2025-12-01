@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Link;
 use Illuminate\Http\Request;
 
@@ -69,7 +70,7 @@ class LinkController extends Controller
      * Redirects to the URL associated with the given slug.
      *
      * @param string $slug The slug of the link.
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function redirect(string $slug)
     {
