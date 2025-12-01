@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Widgets\AccountWidget;
+use Filament\Widgets\FilamentInfoWidget;
 use App\Filament\AvatarProviders\BoringAvatarsProvider;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
@@ -38,6 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('dashboard')
             ->favicon(url('https://filamentphp.com/favicon/favicon-32x32.png'))
+            ->defaultAvatarProvider(BoringAvatarsProvider::class)
             ->login()
             ->registration()
             ->emailVerification()
@@ -57,8 +60,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                AccountWidget::class,
+                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -83,7 +86,8 @@ class AdminPanelProvider extends PanelProvider
                         hasAvatars: false,
                         slug: 'my-profile'
                     )
-                    ->enableTwoFactorAuthentication(),
+                    ->enableTwoFactorAuthentication()
+                    ->enableBrowserSessions(),
                 FilamentShieldPlugin::make(),
                 FilamentUsersPlugin::make(),
             ]);
