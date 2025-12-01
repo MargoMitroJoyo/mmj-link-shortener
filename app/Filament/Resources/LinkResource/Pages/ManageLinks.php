@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\LinkResource\Pages;
 
+use Filament\Actions\CreateAction;
 use App\Filament\Resources\LinkResource;
 use App\Filament\Resources\LinkResource\Widgets\LinkStatsOverview;
 use Filament\Actions;
@@ -14,7 +15,7 @@ class ManageLinks extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 

@@ -2,69 +2,80 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Hidehalo\Nanoid\Client;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\ToggleButtons;
+use Filament\Forms\Components\RichEditor;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Filters\SelectFilter;
+use App\Filament\Resources\LinkResource\Pages\ManageLinks;
 use App\Enums\LinkStatus;
-use App\Filament\Resources\LinkResource\Pages;
-use App\Filament\Resources\LinkResource\RelationManagers;
-use App\Filament\Resources\LinkResource\Widgets\LinkStatsOverview;
 use App\Models\Link;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
+use BackedEnum;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Support\Enums\IconPosition;
-use Filament\Tables;
-use Filament\Tables\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class LinkResource extends Resource
 {
     protected static ?string $model = Link::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-bolt';
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedLink;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('title')
+        return $schema
+            ->components([
+                TextInput::make('title')
                     ->label('Judul')
                     ->autofocus(false)
                     ->live(onBlur: true)
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
+                TextInput::make('slug')
                     ->label('Link Pendek')
                     ->prefix(config('app.url') . '/')
                     ->default(function () {
-                        $nanoClient = new \Hidehalo\Nanoid\Client();
-                        return $nanoClient->generateId(size: 10, mode: \Hidehalo\Nanoid\Client::MODE_DYNAMIC);
+                        $nanoClient = new Client();
+                        return $nanoClient->generateId(size: 10, mode: Client::MODE_DYNAMIC);
                     })
                     ->unique(ignoreRecord: true)
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('url')
+                TextInput::make('url')
                     ->label('Link Asli')
                     ->placeholder('https://yourdomain.id/very-long-links')
                     ->url()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('expired_at')
+                DateTimePicker::make('expired_at')
                     ->label('Kadaluarsa')
                     ->hint('Kosongkan jika tidak ada'),
-                Forms\Components\ToggleButtons::make('status')
+                ToggleButtons::make('status')
                     ->inline()
                     ->options(LinkStatus::class)
                     ->default(LinkStatus::Active)
                     ->required(),
-                Forms\Components\RichEditor::make('description')
+                RichEditor::make('description')
                     ->label('Deskripsi')
                     ->disableToolbarButtons([
                         'attachFiles',
@@ -78,13 +89,13 @@ class LinkResource extends Resource
         return $table
             ->query(fn() => parent::getEloquentQuery()->where('user_id', Auth::user()->id))
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->label('Judul')
                     ->tooltip(fn($state) => $state)
                     ->limit(25)
                     ->weight(FontWeight::Bold)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->label('Link Pendek')
                     ->icon('heroicon-o-clipboard')
                     ->iconPosition(IconPosition::After)
@@ -92,7 +103,7 @@ class LinkResource extends Resource
                     ->copyable()
                     ->copyableState(fn($state) => config('app.url') . '/' . $state)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('url')
+                TextColumn::make('url')
                     ->label('Link Asli')
                     ->limit(50)
                     ->icon('heroicon-o-arrow-top-right-on-square')
@@ -100,13 +111,13 @@ class LinkResource extends Resource
                     ->url(fn($state) => $state)
                     ->openUrlInNewTab()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
+                TextColumn::make('description')
                     ->label('Deskripsi')
                     ->default('-')
                     ->html()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status')
                     ->formatStateUsing(function ($state, Link $record) {
                         if ($record->isExpired()) {
@@ -130,46 +141,45 @@ class LinkResource extends Resource
                         return $state ? 'success' : 'danger';
                     })
                     ->badge(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
+                TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
-                Tables\Filters\SelectFilter::make('status')
+                TrashedFilter::make(),
+                SelectFilter::make('status')
                     ->options([
                         '1' => 'Aktif',
                         '0' => 'Tidak Aktif',
                         '2' => 'Kadaluarsa',
                     ]),
             ])
-            ->actions([
-                // Tables\Actions\ViewAction::make(),
-                Tables\Actions\Action::make('qr-code')
+            ->recordActions([
+                Action::make('qr-code')
                     ->label('QR')
                     ->icon('heroicon-o-qr-code')
                     ->url(fn(Link $record) => 'https://bupin-qr.tegar.dev/api/qr/u/' . urlencode(config('app.url') . '/' . $record->slug) . '?watermark=false&filename=[Generated] ' . $record->title, true),
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
-                    Tables\Actions\ForceDeleteAction::make(),
-                    Tables\Actions\RestoreAction::make(),
+                ActionGroup::make([
+                    EditAction::make(),
+                    DeleteAction::make(),
+                    ForceDeleteAction::make(),
+                    RestoreAction::make(),
                 ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ])
             ->defaultSort('created_at', 'desc')
@@ -180,7 +190,7 @@ class LinkResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageLinks::route('/'),
+            'index' => ManageLinks::route('/'),
         ];
     }
 
