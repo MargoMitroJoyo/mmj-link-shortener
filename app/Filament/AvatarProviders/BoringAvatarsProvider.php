@@ -2,12 +2,12 @@
 
 namespace App\Filament\AvatarProviders;
 
-use Filament\AvatarProviders\Contracts;
+use Filament\AvatarProviders\Contracts\AvatarProvider;
 use Filament\Facades\Filament;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class BoringAvatarsProvider implements Contracts\AvatarProvider
+class BoringAvatarsProvider implements AvatarProvider
 {
     public function get(Model | Authenticatable $record): string
     {
@@ -17,6 +17,6 @@ class BoringAvatarsProvider implements Contracts\AvatarProvider
             ->map(fn (string $segment): string => filled($segment) ? mb_substr($segment, 0, 1) : '')
             ->join(' ');
 
-        return 'https://source.boringavatars.com/beam/120/' . urlencode($name);
+        return 'https://boringavatars.tegar.dev/?variant=beam&size=120&name=' . urlencode($name);
     }
 }
